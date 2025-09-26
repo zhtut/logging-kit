@@ -11,7 +11,7 @@ public extension Logger {
     
     init(config: Configuration) {
         self = Logger(label: "file") { _ in
-            return FileDestination(config: config)
+            return LoggingKit.fileHandler()
         }
     }
     
