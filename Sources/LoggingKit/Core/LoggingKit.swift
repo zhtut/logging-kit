@@ -9,12 +9,9 @@ public enum LoggingKit {
     public static func fileHandler(config: Configuration = .init()) -> LogHandler {
         var handlers: [LogHandler] = []
         
-        // 控制台输出（开发环境）
-#if DEBUG
         var consoleHandler = StreamLogHandler.standardOutput(label: "console")
         consoleHandler.logLevel = config.logLevel
         handlers.append(consoleHandler)
-#endif
         
         // 文件输出
         let fileHandler = FileDestination()
