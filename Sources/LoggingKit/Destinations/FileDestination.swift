@@ -210,6 +210,7 @@ extension FileDestination {
             try writeData(data)
         } catch {
             print("写入日志失败: \(error)")
+            rotateLogFileIfNeeded()
         }
     }
     
