@@ -201,7 +201,9 @@ extension FileDestination {
         
         print(logString)
         
-        guard let data = logString.data(using: .utf8) else { return }
+        let saveToFileLog = logString + "\n"
+        
+        guard let data = saveToFileLog.data(using: .utf8) else { return }
         
         // 检查文件大小，需要时轮转
         if currentFileSize + data.count > config.maxFileSize {
@@ -221,7 +223,7 @@ extension FileDestination {
     private func formatLogEntry(_ entry: LogEntry) -> String {
         let timestamp = entry.timestamp
         let dateString = dateFormatter.string(from: timestamp)
-        return "\(dateString) \(entry.level):\(formatMetadata(entry.metadata)) [\(entry.source)] \(entry.message)\n"
+        return "\(dateString) \(entry.level):\(formatMetadata(entry.metadata)) [\(entry.source)] \(entry.message)"
     }
     
     /// 格式化 metadata
