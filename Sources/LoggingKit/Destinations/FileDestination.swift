@@ -87,20 +87,21 @@ extension FileDestination {
         // 快速检查日志级别（非隔离访问）
         guard level >= logLevel else { return }
         
-        // 创建日志条目（在调用线程上）
-        let logEntry = LogEntry(
-            timestamp: Date(),
-            level: level,
-            message: message,
-            metadata: metadata ?? [:],
-            source: source,
-            file: file,
-            function: function,
-            line: line
-        )
-        
         // 异步发送到 actor 进行处理
         Task { [weak self] in
+            
+            // 创建日志条目（在调用线程上）
+            let logEntry = LogEntry(
+                timestamp: Date(),
+                level: level,
+                message: message,
+                metadata: metadata ?? [:],
+                source: source,
+                file: file,
+                function: function,
+                line: line
+            )
+            
             await self?.processLogEntry(logEntry)
         }
     }
@@ -196,7 +197,9 @@ extension FileDestination {
     
     /// 写入日志条目
     private func writeLogEntry(_ entry: LogEntry) async {
-        let logString = formatLogEntry(entry) + "\n"
+        let logString = formatLogEntry(entry)
+        
+        print(logString)
         
         guard let data = logString.data(using: .utf8) else { return }
         
@@ -218,7 +221,7 @@ extension FileDestination {
     private func formatLogEntry(_ entry: LogEntry) -> String {
         let timestamp = entry.timestamp
         let dateString = dateFormatter.string(from: timestamp)
-        return "\(dateString) [\(entry.level)] \(entry.message) \(formatMetadata(entry.metadata))"
+        return "\(dateString) \(entry.level):\(formatMetadata(entry.metadata)) [\(entry.source)] \(entry.message)\n"
     }
     
     /// 格式化 metadata

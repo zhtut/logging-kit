@@ -33,7 +33,7 @@ public struct Configuration: Sendable {
     public init(
         directoryURL: URL = Self.defaultLogDirectory(),
         maxFileSize: Int = 1 * 1024 * 1024,
-        maxFiles: Int = 5,
+        maxFiles: Int = 10,
         filenameFormat: String = "yyyy-MM-dd-HH-mm-ss",
         timeZone: TimeZone? = TimeZone(secondsFromGMT: 8 * 3600),
         logLevel: Logger.Level = .info,
