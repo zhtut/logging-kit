@@ -10,7 +10,7 @@ public enum LoggingKit {
         var handlers: [LogHandler] = []
         
         // 文件输出
-        let fileHandler = FileDestination()
+        let fileHandler = FileDestination(config: config)
         handlers.append(fileHandler)
         
         // 设置日志系统

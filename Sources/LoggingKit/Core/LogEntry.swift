@@ -38,13 +38,3 @@ public struct LogEntry: Sendable {
         self.line = line
     }
 }
-
-//// 扩展 Logger.Metadata 使其符合 Sendable
-//extension Logger.Metadata: @unchecked Sendable {
-//    // Logger.Metadata 本身是值类型，但包含的 Value 可能不是
-//    // 使用 @unchecked Sendable 因为我们知道实际使用中是安全的
-//}
-//
-//extension Logger.MetadataValue: @unchecked Sendable {
-//    // 同样标记为 @unchecked Sendable
-//}

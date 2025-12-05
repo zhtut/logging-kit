@@ -8,7 +8,17 @@
 import Foundation
 import Logging
 
-public struct Configuration: Sendable {
+/// 获取默认日志目录
+public var kLoggingKitDefaultDirectory: URL {
+    let logsPath = (NSHomeDirectory() as NSString).appendingPathComponent("Logs")
+    return URL(filePath: logsPath)
+}
+
+public class Configuration: @unchecked Sendable {
+    
+    /// 静态实例
+    public static let shared = Configuration()
+    
     /// 日志保存目录
     public let directoryURL: URL
     
@@ -31,7 +41,7 @@ public struct Configuration: Sendable {
     public let queue: DispatchQueue
     
     public init(
-        directoryURL: URL = Self.defaultLogDirectory(),
+        directoryURL: URL = kLoggingKitDefaultDirectory,
         maxFileSize: Int = 1 * 1024 * 1024,
         maxFiles: Int = 10,
         filenameFormat: String = "yyyy-MM-dd-HH-mm-ss",
@@ -46,11 +56,5 @@ public struct Configuration: Sendable {
         self.timeZone = timeZone
         self.logLevel = logLevel
         self.queue = queue
-    }
-    
-    /// 获取默认日志目录
-    public static func defaultLogDirectory() -> URL {
-        let logsPath = (NSHomeDirectory() as NSString).appendingPathComponent("Logs")
-        return URL(filePath: logsPath)
     }
 }

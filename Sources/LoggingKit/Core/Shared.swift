@@ -11,11 +11,11 @@ public extension Logger {
     
     init(config: Configuration) {
         self = Logger(label: "file") { _ in
-            return LoggingKit.fileHandler()
+            return LoggingKit.fileHandler(config: config)
         }
     }
     
-    static let shared = Self(config: .init())
+    static let shared = Self(config: .shared)
 }
 
 @inlinable
