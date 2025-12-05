@@ -20,25 +20,25 @@ public class Configuration: @unchecked Sendable {
     public static let shared = Configuration()
     
     /// 日志保存目录
-    public let directoryURL: URL
+    public var directoryURL: URL
     
     /// 单个文件最大大小 (字节)
-    public let maxFileSize: Int
+    public var maxFileSize: Int
     
     /// 最大文件数量
-    public let maxFiles: Int
+    public var maxFiles: Int
     
     /// 文件命名格式
-    public let filenameFormat: String
+    public var filenameFormat: String
     
     /// 时区，秒数偏移
     public var timeZone: TimeZone?
     
     /// 全局默认日志级别
-    public let logLevel: Logger.Level
+    public var logLevel: Logger.Level
     
     /// 异步写入队列（使用全局队列避免捕获self）
-    public let queue: DispatchQueue
+    public var queue: DispatchQueue
     
     public init(
         directoryURL: URL = kLoggingKitDefaultDirectory,
